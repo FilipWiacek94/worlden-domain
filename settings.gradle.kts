@@ -23,3 +23,5 @@ include(":app")
 include("worlden-world")
 
 rootProject.name = "worlden-domain"
+
+include("worlden-world")
