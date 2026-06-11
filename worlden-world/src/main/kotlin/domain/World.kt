@@ -10,7 +10,7 @@ import kotlin.uuid.Uuid
 data class World private constructor(val worldId: WorldId,
                                      val worldName: WorldName,
                                      val worldDescription: WorldDescription,
-                                     val genres: MutableSet<Genre> = mutableSetOf()) {
+                                     val genres: MutableSet<Genre>) {
     companion object {
         fun create(worldId: Uuid, worldName: String, worldDescription: String, genres: MutableSet<Genre>): World {
             return World(WorldId(worldId), WorldName(worldName), WorldDescription(worldDescription), genres)
