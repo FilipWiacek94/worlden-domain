@@ -39,4 +39,24 @@ class WorldTest {
                 mutableSetOf(Genre.URBAN_FANTASY, Genre.SCIENCE_FICTION))
         }
     }
+
+    @Test
+    fun `should throw when desc is to short`() {
+        assertThrows<IllegalArgumentException> {
+            World.create(Uuid.generateV4(),
+                "TestWorldName",
+                "a",
+                mutableSetOf(Genre.URBAN_FANTASY, Genre.SCIENCE_FICTION))
+        }
+    }
+
+    @Test
+    fun `should throw when desc is to long`() {
+        assertThrows<IllegalArgumentException> {
+            World.create(Uuid.generateV4(),
+                "TestWorldName",
+                "a".repeat(1001),
+                mutableSetOf(Genre.URBAN_FANTASY, Genre.SCIENCE_FICTION))
+        }
+    }
 }
