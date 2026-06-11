@@ -16,4 +16,6 @@ data class World private constructor(val worldId: WorldId,
             return World(WorldId(worldId), WorldName(worldName), WorldDescription(worldDescription), genres)
         }
     }
+
+    fun name(): String = worldName.name
 }
