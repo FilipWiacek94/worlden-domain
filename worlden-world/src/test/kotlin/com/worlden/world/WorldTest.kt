@@ -13,11 +13,11 @@ class WorldTest {
     fun `should create world with valid data`() {
         val world = World.create(
             Uuid.generateV4(),
-            "TestWorld",
-            "TestTestTestTest",
+            "Middle Earth",
+            "Middle Earth desc",
             mutableSetOf(Genre.URBAN_FANTASY, Genre.SCIENCE_FICTION))
 
-        assertEquals("TestWorld", world.name())
+        assertEquals("Middle Earth", world.name())
     }
 
     @Test
@@ -25,7 +25,7 @@ class WorldTest {
         assertThrows<IllegalArgumentException> {
             World.create(Uuid.generateV4(),
                 "abd",
-                "TestTestTestTest",
+                "Middle Earth desc",
                 mutableSetOf(Genre.URBAN_FANTASY, Genre.SCIENCE_FICTION))
         }
     }
@@ -34,8 +34,8 @@ class WorldTest {
     fun `should throw when name is to long`() {
         assertThrows<IllegalArgumentException> {
             World.create(Uuid.generateV4(),
-                "abdabdabdabdabdabdabdabdabdabdabdabdabdabdabdabdabdabdabd",
-                "TestTestTestTest",
+                "a".repeat(22),
+                "Middle Earth desc",
                 mutableSetOf(Genre.URBAN_FANTASY, Genre.SCIENCE_FICTION))
         }
     }
@@ -44,7 +44,7 @@ class WorldTest {
     fun `should throw when desc is to short`() {
         assertThrows<IllegalArgumentException> {
             World.create(Uuid.generateV4(),
-                "TestWorldName",
+                "Middle Earth",
                 "a",
                 mutableSetOf(Genre.URBAN_FANTASY, Genre.SCIENCE_FICTION))
         }
@@ -54,8 +54,48 @@ class WorldTest {
     fun `should throw when desc is to long`() {
         assertThrows<IllegalArgumentException> {
             World.create(Uuid.generateV4(),
-                "TestWorldName",
+                "Middle Earth",
                 "a".repeat(1001),
+                mutableSetOf(Genre.URBAN_FANTASY, Genre.SCIENCE_FICTION))
+        }
+    }
+
+    @Test
+    fun `should throw when name is empty`() {
+        assertThrows<IllegalArgumentException> {
+            World.create(Uuid.generateV4(),
+                "",
+                "Middle Earth desc",
+                mutableSetOf(Genre.URBAN_FANTASY, Genre.SCIENCE_FICTION))
+        }
+    }
+
+    @Test
+    fun `should throw when name is blank`() {
+        assertThrows<IllegalArgumentException> {
+            World.create(Uuid.generateV4(),
+                " ",
+                "Middle Earth desc",
+                mutableSetOf(Genre.URBAN_FANTASY, Genre.SCIENCE_FICTION))
+        }
+    }
+
+    @Test
+    fun `should throw when desc is empty`() {
+        assertThrows<IllegalArgumentException> {
+            World.create(Uuid.generateV4(),
+                "",
+                "Middle Earth desc",
+                mutableSetOf(Genre.URBAN_FANTASY, Genre.SCIENCE_FICTION))
+        }
+    }
+
+    @Test
+    fun `should throw when desc is blank`() {
+        assertThrows<IllegalArgumentException> {
+            World.create(Uuid.generateV4(),
+                " ",
+                "Middle Earth desc",
                 mutableSetOf(Genre.URBAN_FANTASY, Genre.SCIENCE_FICTION))
         }
     }
