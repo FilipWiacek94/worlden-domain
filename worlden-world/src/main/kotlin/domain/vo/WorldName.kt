@@ -1,4 +1,4 @@
-package com.worlden.world.domain.vo
+package com.worlden.domain.vo
 
 @JvmInline
 value class WorldName(val name: String) {

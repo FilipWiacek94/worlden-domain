@@ -1,4 +1,4 @@
-package com.worlden.world.domain.vo
+package com.worlden.domain.vo
 
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
