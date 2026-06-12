@@ -11,6 +11,7 @@ class InMemoryWorldRepository : WorldRepository {
     var worlds = mutableMapOf<Uuid, World>()
 
     override fun save(world: World): World {
-        TODO("Not yet implemented")
+        worlds[world.worldId.id] = world
+        return world
     }
 }

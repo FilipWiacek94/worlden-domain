@@ -8,9 +8,9 @@ import kotlin.uuid.Uuid
 
 @ConsistentCopyVisibility
 data class World private constructor(val worldId: WorldId,
-                                     val worldName: WorldName,
-                                     val worldDescription: WorldDescription,
-                                     val genres: MutableSet<Genre>) {
+                                     var worldName: WorldName,
+                                     var worldDescription: WorldDescription,
+                                     var genres: MutableSet<Genre>) {
     companion object {
         fun create(worldId: Uuid, worldName: String, worldDescription: String, genres: MutableSet<Genre>): World {
             return World(WorldId(worldId), WorldName(worldName), WorldDescription(worldDescription), genres)
