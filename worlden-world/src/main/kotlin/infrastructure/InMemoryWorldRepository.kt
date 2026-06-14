@@ -15,7 +15,7 @@ class InMemoryWorldRepository : WorldRepository {
         return world
     }
 
-    override fun getById(id: Uuid): World? {
-        TODO("Not yet implemented")
+    override fun getByName(name: String): World? {
+        return worlds.values.find { it.name() == name }
     }
 }

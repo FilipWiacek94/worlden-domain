@@ -2,6 +2,7 @@ package com.worlden.application
 
 import arrow.core.Either
 import arrow.core.raise.either
+import arrow.core.raise.ensure
 import com.worlden.application.command.CreateWorldCommand
 import com.worlden.application.event.WorldCreatedEvent
 import com.worlden.application.exception.WorldError
@@ -17,11 +18,14 @@ class WorldService(
 
     fun createWorld(command: CreateWorldCommand): Either<WorldError, WorldCreatedEvent> = either {
 
+        ensure(worldRepository.getByName(command.worldName) == null) {
+            WorldError.InvalidWorldData("World name '${command.worldName}' already exists.")
+        }
 
         val world = try {
             World.create(Uuid.generateV4(), command.worldName, command.worldDescription, command.genres)
         } catch (e: IllegalArgumentException) {
-            return Either.Left(WorldError.InvalidWorldData(e.localizedMessage))
+            raise(WorldError.InvalidWorldData(e.localizedMessage))
         }
         worldRepository.save(world)
         WorldCreatedEvent(world.worldId.id, world)
