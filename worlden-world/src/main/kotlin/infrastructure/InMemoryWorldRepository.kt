@@ -14,4 +14,8 @@ class InMemoryWorldRepository : WorldRepository {
         worlds[world.worldId.id] = world
         return world
     }
+
+    override fun getById(id: Uuid): World? {
+        TODO("Not yet implemented")
+    }
 }
