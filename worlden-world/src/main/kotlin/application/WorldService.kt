@@ -8,12 +8,14 @@ import com.worlden.application.event.WorldCreatedEvent
 import com.worlden.application.exception.WorldError
 import com.worlden.domain.World
 import com.worlden.domain.WorldRepository
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import kotlin.uuid.Uuid
 
 @Service
 class WorldService(
-    private val worldRepository: WorldRepository
+    private val worldRepository: WorldRepository,
+    private val eventPublisher: ApplicationEventPublisher
 ) {
 
     fun createWorld(command: CreateWorldCommand): Either<WorldError, WorldCreatedEvent> = either {
@@ -28,6 +30,8 @@ class WorldService(
             raise(WorldError.InvalidWorldData(e.localizedMessage))
         }
         worldRepository.save(world)
-        WorldCreatedEvent(world.worldId.id, world)
+        val worldCreatedEvent = WorldCreatedEvent(Uuid.generateV4(), world.id())
+        eventPublisher.publishEvent(worldCreatedEvent)
+        worldCreatedEvent
     }
 }

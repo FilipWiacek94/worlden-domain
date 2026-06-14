@@ -18,4 +18,6 @@ data class World private constructor(val worldId: WorldId,
     }
 
     fun name(): String = worldName.name
+
+    fun id(): Uuid = worldId.id
 }
