@@ -20,6 +20,7 @@ class WorldService(
             throw WorldValidationException("World name '${command.worldName}' already exists.")
         }
         val world = World.create(Uuid.generateV4(), command.worldName, command.worldDescription, command.genres)
+        //TODO: should be atomic
         worldRepository.save(world)
         val event = WorldCreatedEvent(Uuid.generateV4(), world.id())
         eventPublisher.publishEvent(event)
