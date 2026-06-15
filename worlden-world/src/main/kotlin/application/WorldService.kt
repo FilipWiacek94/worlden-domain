@@ -16,7 +16,7 @@ class WorldService(
 ) {
 
     fun createWorld(command: CreateWorldCommand): WorldCreatedEvent {
-        if (worldRepository.getByName(command.worldName) != null) {
+        if (worldRepository.getByName(command.worldName.trim()) != null) {
             throw WorldValidationException("World name '${command.worldName}' already exists.")
         }
         val world = World.create(Uuid.generateV4(), command.worldName, command.worldDescription, command.genres)

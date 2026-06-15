@@ -6,9 +6,10 @@ import com.worlden.domain.exception.WorldValidationException
 value class WorldName(val name: String) {
     companion object {
         fun of(name: String): WorldName {
-            if (name.isBlank()) throw WorldValidationException("World name must not be blank or empty")
-            if (name.length !in 5..20) throw WorldValidationException("World name length must be between 5 and 20")
-            return WorldName(name)
+            val trimmed = name.trim()
+            if (trimmed.isBlank()) throw WorldValidationException("World name must not be blank or empty")
+            if (trimmed.length !in 5..20) throw WorldValidationException("World name length must be between 5 and 20")
+            return WorldName(trimmed)
         }
     }
 }
