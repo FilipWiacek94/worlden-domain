@@ -28,6 +28,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("io.arrow-kt:arrow-core:2.2.3")
     implementation("io.arrow-kt:arrow-fx-coroutines:2.2.3")
+    testImplementation("io.mockk:mockk:1.9.3")
 }
 
 tasks.withType<Test>().configureEach {

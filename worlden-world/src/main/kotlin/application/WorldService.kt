@@ -6,6 +6,7 @@ import arrow.core.raise.ensure
 import com.worlden.application.command.CreateWorldCommand
 import com.worlden.application.event.WorldCreatedEvent
 import com.worlden.application.exception.WorldError
+import com.worlden.controller.request.CreateWorldRequest
 import com.worlden.domain.World
 import com.worlden.domain.WorldRepository
 import org.springframework.context.ApplicationEventPublisher
@@ -18,14 +19,16 @@ class WorldService(
     private val eventPublisher: ApplicationEventPublisher
 ) {
 
-    fun createWorld(command: CreateWorldCommand): Either<WorldError, WorldCreatedEvent> = either {
+    fun createWorld(request: CreateWorldRequest): Either<WorldError, WorldCreatedEvent> = either {
 
-        ensure(worldRepository.getByName(command.worldName) == null) {
-            WorldError.InvalidWorldData("World name '${command.worldName}' already exists.")
+        ensure(worldRepository.getByName(request.worldName) == null) {
+            WorldError.InvalidWorldData("World name '${request.worldName}' already exists.")
         }
 
+        val cmd = CreateWorldCommand(request.worldName, request.worldDescription, request.genres)
+
         val world = try {
-            World.create(Uuid.generateV4(), command.worldName, command.worldDescription, command.genres)
+            World.create(Uuid.generateV4(), cmd.worldName, cmd.worldDescription, cmd.genres)
         } catch (e: IllegalArgumentException) {
             raise(WorldError.InvalidWorldData(e.localizedMessage))
         }
