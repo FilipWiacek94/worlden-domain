@@ -26,8 +26,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    implementation("io.arrow-kt:arrow-core:2.2.3")
-    implementation("io.arrow-kt:arrow-fx-coroutines:2.2.3")
     testImplementation("io.mockk:mockk:1.9.3")
 }
 

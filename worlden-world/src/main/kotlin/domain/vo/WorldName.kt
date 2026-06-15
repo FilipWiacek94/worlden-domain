@@ -1,10 +1,14 @@
 package com.worlden.domain.vo
 
+import com.worlden.domain.exception.WorldValidationException
+
 @JvmInline
 value class WorldName(val name: String) {
-    init {
-        require(name.isNotEmpty()) { "name must not be empty" }
-        require(name.isNotBlank()) { "name must not be blank" }
-        require(name.length in 5..20) { "name length must be between 5 and 20" }
+    companion object {
+        fun of(name: String): WorldName {
+            if (name.isBlank()) throw WorldValidationException("World name must not be blank or empty")
+            if (name.length !in 5..20) throw WorldValidationException("World name length must be between 5 and 20")
+            return WorldName(name)
+        }
     }
 }
