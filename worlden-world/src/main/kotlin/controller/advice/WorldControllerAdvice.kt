@@ -16,5 +16,5 @@ class WorldControllerAdvice {
 
     @ExceptionHandler(HttpMessageNotReadableException::class)
     fun handleHttpMessageNotReadableException(e: HttpMessageNotReadableException): ResponseEntity<ErrorResponse> =
-        ResponseEntity.badRequest().body(ErrorResponse("Invalid request body: ${e.message}"))
+        ResponseEntity.badRequest().body(ErrorResponse("Invalid request body"))
 }

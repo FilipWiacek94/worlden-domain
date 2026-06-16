@@ -12,7 +12,7 @@ class InMemoryWorldRepository : WorldRepository {
     private val worlds = ConcurrentHashMap<Uuid, World>()
 
     override fun save(world: World): World {
-        worlds[world.worldId.id] = world
+        worlds[world.id()] = world
         return world
     }
 
